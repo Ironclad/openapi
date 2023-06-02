@@ -1,0 +1,2567 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Ironclad SCIM API",
+    "description": "Documentation for Ironclad's SCIM Implementation.",
+    "version": "1",
+    "contact": {
+      "name": "Ironclad Support",
+      "email": "support@ironcladapp.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://ironcladapp.com/scim/v2",
+      "description": "Production server"
+    },
+    {
+      "url": "https://eu1.ironcladapp.com/scim/v2",
+      "description": "EU Production server"
+    },
+    {
+      "url": "https://demo.ironcladapp.com/scim/v2",
+      "description": "Demo server"
+    },
+    {
+      "url": "https://preview.ironcladapp.com/scim/v2",
+      "description": "Preview server"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "GroupSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "urn:ietf:params:scim:schemas:core:2.0:Group"
+          },
+          "name": {
+            "type": "string",
+            "example": "Group"
+          },
+          "description": {
+            "type": "string",
+            "example": "Group"
+          },
+          "attributes": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "multiValued": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "A human-readable name for the Group.  REQUIRED."
+                    },
+                    "required": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "caseExact": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "mutability": {
+                      "type": "string",
+                      "example": "readWrite"
+                    },
+                    "returned": {
+                      "type": "string",
+                      "example": "default"
+                    },
+                    "uniqueness": {
+                      "type": "string",
+                      "example": "none"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "displayName"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "complex"
+                    },
+                    "multiValued": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "A list of members of the Group."
+                    },
+                    "required": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "mutability": {
+                      "type": "string",
+                      "example": "readWrite"
+                    },
+                    "returned": {
+                      "type": "string",
+                      "example": "default"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "members"
+                    },
+                    "subattributes": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "example": "string"
+                              },
+                              "multiValued": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "description": {
+                                "type": "string",
+                                "example": "Identifier of the member of this Group."
+                              },
+                              "required": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "caseExact": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "mutability": {
+                                "type": "string",
+                                "example": "immutable"
+                              },
+                              "returned": {
+                                "type": "string",
+                                "example": "default"
+                              },
+                              "uniqueness": {
+                                "type": "string",
+                                "example": "none"
+                              },
+                              "name": {
+                                "type": "string",
+                                "example": "value"
+                              }
+                            }
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "example": "reference"
+                              },
+                              "referenceTypes": {
+                                "type": "array",
+                                "items": {
+                                  "type": "array",
+                                  "example": ["User", "Group"]
+                                }
+                              },
+                              "multiValued": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "description": {
+                                "type": "string",
+                                "example": "The URI corresponding to a SCIM resource that is a member of this Group."
+                              },
+                              "required": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "caseExact": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "mutability": {
+                                "type": "string",
+                                "example": "immutable"
+                              },
+                              "returned": {
+                                "type": "string",
+                                "example": "default"
+                              },
+                              "uniqueness": {
+                                "type": "string",
+                                "example": "none"
+                              },
+                              "name": {
+                                "type": "string",
+                                "example": "$ref"
+                              }
+                            }
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "example": "string"
+                              },
+                              "multiValued": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "description": {
+                                "type": "string",
+                                "example": "A label indicating the type of resource, e.g., 'User' or 'Group'."
+                              },
+                              "required": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "caseExact": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "canonicalValues": {
+                                "type": "array",
+                                "items": {
+                                  "type": "array",
+                                  "example": ["User, Group"]
+                                }
+                              },
+                              "mutability": {
+                                "type": "string",
+                                "example": "immutable"
+                              },
+                              "returned": {
+                                "type": "string",
+                                "example": "default"
+                              },
+                              "uniqueness": {
+                                "type": "string",
+                                "example": "none"
+                              },                         
+                              "name": {
+                                "type": "string",
+                                "example": "type"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }                
+              ]
+            }
+          },
+          "meta": {
+            "type": "object",
+            "properties": {
+              "resourceType": {
+                "type": "string",
+                "example": "Schema"
+              },
+              "location": {
+                "type": "string",
+                "format": "uri",
+                "example": "https://demo.ironcladapp.com/scim/v2/Schemas/urn:ietf:params:scim:schemas:core:2.0:Group"
+              }
+            }
+          }
+        }
+      },
+      "CoreUserSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "urn:ietf:params:scim:schemas:core:2.0:User"
+          },
+          "name": {
+            "type": "string",
+            "example": "User"
+          },
+          "description": {
+            "type": "string",
+            "example": "User Account"
+          },
+          "attributes": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "multiValued": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "Unique identifier for the User, typically used by the user to directly authenticate to the service provider.  Each User MUST include a non-empty userName value.  This identifier MUST be unique across the service provider's entire set of Users.  REQUIRED."
+                    },
+                    "required": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "caseExact": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "mutability": {
+                      "type": "string",
+                      "example": "readWrite"
+                    },
+                    "returned": {
+                      "type": "string",
+                      "example": "default"
+                    },
+                    "uniqueness": {
+                      "type": "string",
+                      "example": "server"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "userName"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "complex"
+                    },
+                    "multiValued": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "The components of the user's real name.  Providers MAY return just the full name as a single string in the formatted sub-attribute, or they MAY return just the individual component attributes using the other sub-attributes, or they MAY return both.  If both variants are returned, they SHOULD be describing the same name, with the formatted name indicating how the component attributes should be combined."
+                    },
+                    "required": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "mutability": {
+                      "type": "string",
+                      "example": "readWrite"
+                    },
+                    "returned": {
+                      "type": "string",
+                      "example": "default"
+                    },
+                    "uniqueness": {
+                      "type": "string",
+                      "example": "none"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "name"
+                    },
+                    "subattributes": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "example": "string"
+                              },
+                              "multiValued": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "description": {
+                                "type": "string",
+                                "example": "The full name, including all middle names, titles, and suffixes as appropriate, formatted for display (e.g., 'Ms. Barbara J Jensen, III')."
+                              },
+                              "required": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "caseExact": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "mutability": {
+                                "type": "string",
+                                "example": "readWrite"
+                              },
+                              "returned": {
+                                "type": "string",
+                                "example": "default"
+                              },
+                              "uniqueness": {
+                                "type": "string",
+                                "example": "none"
+                              },
+                              "name": {
+                                "type": "string",
+                                "example": "formatted"
+                              }
+                            }
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "example": "string"
+                              },
+                              "multiValued": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "description": {
+                                "type": "string",
+                                "example": "The family name of the User, or last name in most Western languages (e.g., 'Jensen' given the full name 'Ms. Barbara J Jensen, III')."
+                              },
+                              "required": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "caseExact": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "mutability": {
+                                "type": "string",
+                                "example": "readWrite"
+                              },
+                              "returned": {
+                                "type": "string",
+                                "example": "default"
+                              },
+                              "uniqueness": {
+                                "type": "string",
+                                "example": "none"
+                              },
+                              "name": {
+                                "type": "string",
+                                "example": "familyName"
+                              }
+                            }
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "example": "string"
+                              },
+                              "multiValued": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "description": {
+                                "type": "string",
+                                "example": "The given name of the User, or first name in most Western languages (e.g., 'Barbara' given the full name 'Ms. Barbara J Jensen, III')."
+                              },
+                              "required": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "caseExact": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "mutability": {
+                                "type": "string",
+                                "example": "readWrite"
+                              },
+                              "returned": {
+                                "type": "string",
+                                "example": "default"
+                              },
+                              "uniqueness": {
+                                "type": "string",
+                                "example": "none"
+                              },                         
+                              "name": {
+                                "type": "string",
+                                "example": "givenName"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "multiValued": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "The name of the User, suitable for display to end-users.  The name SHOULD be the full name of the User being described, if known."
+                    },
+                    "required": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "caseExact": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "mutability": {
+                      "type": "string",
+                      "example": "readWrite"
+                    },
+                    "returned": {
+                      "type": "string",
+                      "example": "default"
+                    },
+                    "uniqueness": {
+                      "type": "string",
+                      "example": "server"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "displayName"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "multiValued": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "The casual way to address the user in real life, e.g., 'Bob' or 'Bobby' instead of 'Robert'.  This attribute SHOULD NOT be used to represent a User's username (e.g., 'bjensen' or 'mpepperidge')."
+                    },
+                    "required": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "caseExact": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "mutability": {
+                      "type": "string",
+                      "example": "readWrite"
+                    },
+                    "returned": {
+                      "type": "string",
+                      "example": "default"
+                    },
+                    "uniqueness": {
+                      "type": "string",
+                      "example": "server"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "nickName"
+                    }
+                  }
+                },                
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "multiValued": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "The user's title, such as \"Vice President.\""
+                    },
+                    "required": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "caseExact": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "mutability": {
+                      "type": "string",
+                      "example": "readWrite"
+                    },
+                    "returned": {
+                      "type": "string",
+                      "example": "default"
+                    },
+                    "uniqueness": {
+                      "type": "string",
+                      "example": "server"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "title"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "boolean"
+                    },
+                    "multiValued": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "A Boolean value indicating the User's administrative status."
+                    },
+                    "required": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "mutability": {
+                      "type": "string",
+                      "example": "readWrite"
+                    },
+                    "returned": {
+                      "type": "string",
+                      "example": "default"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "active"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "complex"
+                    },
+                    "multiValued": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "Email addresses for the user.  The value SHOULD be canonicalized by the service provider, e.g., 'bjensen@example.com' instead of 'bjensen@EXAMPLE.COM'.  Canonical type values of 'work', 'home', and 'other'."
+                    },
+                    "required": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "mutability": {
+                      "type": "string",
+                      "example": "readWrite"
+                    },
+                    "returned": {
+                      "type": "string",
+                      "example": "default"
+                    },
+                    "uniqueness": {
+                      "type": "string",
+                      "example": "none"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "emails"
+                    },
+                    "subattributes": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "example": "string"
+                              },
+                              "multiValued": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "description": {
+                                "type": "string",
+                                "example": "Email addresses for the user.  The value SHOULD be canonicalized by the service provider, e.g., 'bjensen@example.com' instead of 'bjensen@EXAMPLE.COM'.  Canonical type values of 'work', 'home', and 'other'."
+                              },
+                              "required": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "caseExact": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "mutability": {
+                                "type": "string",
+                                "example": "readWrite"
+                              },
+                              "returned": {
+                                "type": "string",
+                                "example": "default"
+                              },
+                              "uniqueness": {
+                                "type": "string",
+                                "example": "none"
+                              },
+                              "name": {
+                                "type": "string",
+                                "example": "value"
+                              }
+                            }
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "example": "string"
+                              },
+                              "multiValued": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "description": {
+                                "type": "string",
+                                "example": "A human-readable name, primarily used for display purposes.  READ-ONLY."
+                              },
+                              "required": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "caseExact": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "mutability": {
+                                "type": "string",
+                                "example": "readOnly"
+                              },
+                              "returned": {
+                                "type": "string",
+                                "example": "default"
+                              },
+                              "uniqueness": {
+                                "type": "string",
+                                "example": "none"
+                              },
+                              "name": {
+                                "type": "string",
+                                "example": "name"
+                              }
+                            }
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "example": "string"
+                              },
+                              "multiValued": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "description": {
+                                "type": "string",
+                                "example": "A label indicating the attribute's function, e.g., 'work' or 'home'."
+                              },
+                              "required": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "caseExact": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "canonicalValues": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                },
+                                "example": ["work", "home", "other"]
+                              },
+                              "mutability": {
+                                "type": "string",
+                                "example": "readWrite"
+                              },
+                              "returned": {
+                                "type": "string",
+                                "example": "default"
+                              },
+                              "uniqueness": {
+                                "type": "string",
+                                "example": "none"
+                              },                         
+                              "name": {
+                                "type": "string",
+                                "example": "type"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }                                
+              ]
+            }
+          },
+          "meta": {
+            "type": "object",
+            "properties": {
+              "resourceType": {
+                "type": "string",
+                "example": "Schema"
+              },
+              "location": {
+                "type": "string",
+                "format": "uri",
+                "example": "https://demo.ironcladapp.com/scim/v2/Schemas/urn:ietf:params:scim:schemas:core:2.0:User"
+              }
+            }
+          }          
+        }
+      },
+      "EnterpriseUserSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"
+          },
+          "name": {
+            "type": "string",
+            "example": "EnterpriseUser"
+          },
+          "description": {
+            "type": "string",
+            "example": "Enterprise User"
+          },
+          "attributes": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "multiValued": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "Numeric or alphanumeric identifier assigned to a person, typically based on order of hire or association with an organization."
+                    },
+                    "required": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "caseExact": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "mutability": {
+                      "type": "string",
+                      "example": "readWrite"
+                    },
+                    "returned": {
+                      "type": "string",
+                      "example": "default"
+                    },
+                    "uniqueness": {
+                      "type": "string",
+                      "example": "none"
+                    },
+                    "mapping": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "direct"
+                        },
+                        "key": {
+                          "type": "string",
+                          "example": "employeeNumber"
+                        }
+                      }
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "employeeNumber"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "multiValued": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "Identifies the name of a cost center."
+                    },
+                    "required": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "caseExact": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "mutability": {
+                      "type": "string",
+                      "example": "readWrite"
+                    },
+                    "returned": {
+                      "type": "string",
+                      "example": "default"
+                    },
+                    "uniqueness": {
+                      "type": "string",
+                      "example": "none"
+                    },
+                    "mapping": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "direct"
+                        },
+                        "key": {
+                          "type": "string",
+                          "example": "costCenter"
+                        }
+                      }
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "costCenter"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "multiValued": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "Identifies the name of an organization."
+                    },
+                    "required": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "caseExact": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "mutability": {
+                      "type": "string",
+                      "example": "readWrite"
+                    },
+                    "returned": {
+                      "type": "string",
+                      "example": "default"
+                    },
+                    "uniqueness": {
+                      "type": "string",
+                      "example": "none"
+                    },
+                    "mapping": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "direct"
+                        },
+                        "key": {
+                          "type": "string",
+                          "example": "organization"
+                        }
+                      }
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "organization"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "multiValued": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "Identifies the name of a department."
+                    },
+                    "required": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "caseExact": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "mutability": {
+                      "type": "string",
+                      "example": "readWrite"
+                    },
+                    "returned": {
+                      "type": "string",
+                      "example": "default"
+                    },
+                    "uniqueness": {
+                      "type": "string",
+                      "example": "none"
+                    },
+                    "mapping": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "direct"
+                        },
+                        "key": {
+                          "type": "string",
+                          "example": "department"
+                        }
+                      }
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "department"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "complex"
+                    },
+                    "multiValued": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "The User's manager.  A complex type that optionally allows service providers to represent organizational hierarchy by referencing the 'id' attribute of another User."
+                    },
+                    "required": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "mutability": {
+                      "type": "string",
+                      "example": "readWrite"
+                    },
+                    "returned": {
+                      "type": "string",
+                      "example": "default"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "manager"
+                    },
+                    "subattributes": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "example": "string"
+                              },
+                              "multiValued": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "description": {
+                                "type": "string",
+                                "example": "The id of the SCIM resource representing the User's manager.  REQUIRED."
+                              },
+                              "required": {
+                                "type": "boolean",
+                                "example": true
+                              },
+                              "caseExact": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "mutability": {
+                                "type": "string",
+                                "example": "readWrite"
+                              },
+                              "returned": {
+                                "type": "string",
+                                "example": "default"
+                              },
+                              "uniqueness": {
+                                "type": "string",
+                                "example": "none"
+                              },
+                              "name": {
+                                "type": "string",
+                                "example": "value"
+                              }
+                            }
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "example": "reference"
+                              },
+                              "referenceTypes": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "example": "User"
+                                }
+                              },
+                              "multiValued": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "description": {
+                                "type": "string",
+                                "example": "The URI of the SCIM resource representing the User's manager.  REQUIRED."
+                              },
+                              "required": {
+                                "type": "boolean",
+                                "example": true
+                              },
+                              "caseExact": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "mutability": {
+                                "type": "string",
+                                "example": "readWrite"
+                              },
+                              "returned": {
+                                "type": "string",
+                                "example": "default"
+                              },
+                              "uniqueness": {
+                                "type": "string",
+                                "example": "none"
+                              },
+                              "name": {
+                                "type": "string",
+                                "example": "$ref"
+                              }
+                            }
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "example": "string"
+                              },
+                              "multiValued": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "description": {
+                                "type": "string",
+                                "example": "The displayName of the User's manager.  OPTIONAL and READ-ONLY."
+                              },
+                              "required": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "caseExact": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "mutability": {
+                                "type": "string",
+                                "example": "readOnly"
+                              },
+                              "returned": {
+                                "type": "string",
+                                "example": "default"
+                              },
+                              "uniqueness": {
+                                "type": "string",
+                                "example": "none"
+                              },
+                              "mapping": {
+                                "type": "object",
+                                "properties": {
+                                  "type": {
+                                    "type": "string",
+                                    "example": "direct"
+                                  },
+                                  "key": {
+                                    "type": "string",
+                                    "example": "managerName"
+                                  }
+                                }
+                              },                              
+                              "name": {
+                                "type": "string",
+                                "example": "displayName"
+                              }
+                            }
+                          }                                                                                   
+                        ]
+                      }
+                    }
+                  }
+                }                     
+              ]
+            }
+          },
+          "meta": {
+            "type": "object",
+            "properties": {
+              "resourceType": {
+                "type": "string",
+                "example": "Schema"
+              },
+              "location": {
+                "type": "string",
+                "format": "uri",
+                "example": "https://demo.ironcladapp.com/scim/v2/Schemas/urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"
+              }
+            }
+          }
+        }
+      },
+      "IroncladUserSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "urn:ietf:params:scim:schemas:extension:ironclad:2.0:User"
+          },
+          "name": {
+            "type": "string",
+            "example": "IroncladUser"
+          },
+          "description": {
+            "type": "string",
+            "example": "Ironclad User"
+          },
+          "attributes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "multiValued": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "description": {
+                  "type": "string",
+                  "example": "The email address (username) of the user's department head"
+                },
+                "required": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "caseExact": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "mutability": {
+                  "type": "string",
+                  "example": "readWrite"
+                },
+                "returned": {
+                  "type": "string",
+                  "example": "default"
+                },
+                "uniqueness": {
+                  "type": "string",
+                  "example": "none"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "departmentHead"
+                }
+              }
+            }
+          },
+          "meta": {
+            "type": "object",
+            "properties": {
+              "resourceType": {
+                "type": "string",
+                "example": "Schema"
+              },
+              "location": {
+                "type": "string",
+                "format": "uri",
+                "example": "https://demo.ironcladapp.com/scim/v2/Schemas/urn:ietf:params:scim:schemas:extension:ironclad:2.0:User"
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "sec0": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "x-bearer-format": "bearer"
+      }
+    }
+  },
+  "security": [{ "sec0": [] }],
+  "paths": {
+    "/Users": {
+      "post": {
+        "summary": "Create a User",
+        "description": "Documentation on creating a User via SCIM",
+        "operationId": "create-a-user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["schemas", "userName", "name"],
+                "properties": {
+                  "schemas": {
+                    "type": "array",
+                    "default": ["urn:ietf:params:scim:schemas:core:2.0:User"],
+                    "items": { "type": "string" }
+                  },
+                  "userName": {
+                    "type": "string",
+                    "description": "The email address of the user (e.g., jdoe@acme.com)"
+                  },
+                  "name": {
+                    "type": "object",
+                    "description": "The first name and last name of the user.",
+                    "properties": {
+                      "givenName": {
+                        "type": "string",
+                        "description": "The first name of the user."
+                      },
+                      "familyName": {
+                        "type": "string",
+                        "description": "The last name of the user."
+                      }
+                    }
+                  },
+                  "title": {
+                    "type": "string",
+                    "description": "The user's legal title"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "201",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "userName": "{USER_EMAIL}",   
+                      "name": {       
+                        "givenName": "Alex",
+                        "familyName": "Doe"   },
+                        "schemas": ["urn:ietf:params:scim:schemas:core:2.0:User"], "title": "Vice President",    "id": "{USER_ID}",   "emails": [        {           "value": "{USER_EMAIL}",            "type": "work",          "primary": true        }    ],   "active": true}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "userName": { "type": "string", "example": "{USER_EMAIL}" },
+                    "name": {
+                      "type": "object",
+                      "properties": {
+                        "givenName": { "type": "string", "example": "Alex" },
+                        "familyName": { "type": "string", "example": "Doe" }
+                      }
+                    },
+                    "schemas": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "urn:ietf:params:scim:schemas:core:2.0:User"
+                      }
+                    },
+                    "title": { "type": "string", "example": "Vice President" },
+                    "id": { "type": "string", "example": "{USER_ID}" },
+                    "emails": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "string",
+                            "example": "{USER_EMAIL}"
+                          },
+                          "type": { "type": "string", "example": "work" },
+                          "primary": {
+                            "type": "boolean",
+                            "example": true,
+                            "default": true
+                          }
+                        }
+                      }
+                    },
+                    "active": {
+                      "type": "boolean",
+                      "example": true,
+                      "default": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "403",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "// Potentially occurs if SAML not configured correctly\n{\n    \"schemas\": [\n        \"urn:ietf:params:scim:api:messages:2.0:Error\"\n    ],\n    \"status\": \"403\"\n}"
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "409",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "// Occurs if user has already been added\n{\n    \"schemas\": [\n        \"urn:ietf:params:scim:api:messages:2.0:Error\"\n    ],\n    \"status\": \"409\"\n}"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Users"]
+      },
+      "get": {
+        "summary": "List all Users",
+        "description": "Documentation on listing Users via SCIM",
+        "operationId": "retrieve-all-users",
+        "parameters": [
+          {
+            "name": "startIndex",
+            "in": "query",
+            "description": "Minimum of 1. The starting index for retrieving users. Users are indexed based on when they were first added to Ironclad.",
+            "schema": { "type": "integer", "format": "int32", "default": 1 }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "Minimum of 1.",
+            "schema": { "type": "integer", "format": "int32", "default": 25 }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filters for identifying subsets of users. Filters must comply with the SCIM protocol's convention. For more details, see SCIM [RFC 7644 Section 3.4.2.2](https://datatracker.ietf.org/doc/html/rfc7644#section-3.4.2.2).",
+            "example": "userName eq \"boba.fett@gmail.com\"",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {"schemas": [ "urn:ietf:params:scim:api:messages:2.0:ListResponse"    ],    "totalResults": 2,  "Resources": [       {          "userName": "adoe@acme.com",           "schemas": [                "urn:ietf:params:scim:schemas:core:2.0:User"          ],           "id": "{USER_ID_1}",           "name": {               "givenName": "Alex",               "familyName": "Doe"          },            "emails": [               {                   "value": "adoe@acme.com",                  "type": "work",                   "primary": true                }            ],            "active": true        },        {           "userName": "jdoe@acme.com",            "schemas": [                "urn:ietf:params:scim:schemas:core:2.0:User"            ],            "id": "{USER_ID_2}",            "name": {                "givenName": "Jules",                "familyName": "Doe"            },            "emails": [                {                    "value": "jdoe@acme.com",                    "type": "work",                   "primary": true                }           ],            "active": true        }    ],    "startIndex": 1,    "itemsPerPage": 25}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "schemas": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+                      }
+                    },
+                    "totalResults": {
+                      "type": "integer",
+                      "example": 2,
+                      "default": 0
+                    },
+                    "Resources": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "userName": {
+                            "type": "string",
+                            "example": "adoe@acme.com"
+                          },
+                          "schemas": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "example": "urn:ietf:params:scim:schemas:core:2.0:User"
+                            }
+                          },
+                          "id": { "type": "string", "example": "{USER_ID_1}" },
+                          "name": {
+                            "type": "object",
+                            "properties": {
+                              "givenName": {
+                                "type": "string",
+                                "example": "Alex"
+                              },
+                              "familyName": {
+                                "type": "string",
+                                "example": "Doe"
+                              }
+                            }
+                          },
+                          "emails": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "string",
+                                  "example": "adoe@acme.com"
+                                },
+                                "type": { "type": "string", "example": "work" },
+                                "primary": {
+                                  "type": "boolean",
+                                  "example": true,
+                                  "default": true
+                                }
+                              }
+                            }
+                          },
+                          "active": {
+                            "type": "boolean",
+                            "example": true,
+                            "default": true
+                          }
+                        }
+                      }
+                    },
+                    "startIndex": {
+                      "type": "integer",
+                      "example": 1,
+                      "default": 0
+                    },
+                    "itemsPerPage": {
+                      "type": "integer",
+                      "example": 25,
+                      "default": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400",
+            "content": {
+              "application/json": {
+                "examples": {
+                  " Bad Request (Invalid Filter)": {
+                    "value": {    "schemas": [       "urn:ietf:params:scim:api:messages:2.0:Error"    ],   "status": "400",   "scimType": "invalidFilter",  "detail": "No matching schema for attribute: somethingRandom"}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "schema": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "urn:ietf:params:scim:api:messages:2.0:Error"
+                      }
+                    },
+                    "status": { "type": "string", "example": "400" },
+                    "scimType": {
+                      "type": "string",
+                      "example": "invalidFilter"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "example": "No matching schema for attribute: somethingRandom"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Users"]
+      }
+    },
+    "/Users/{userId}": {
+      "get": {
+        "summary": "Retrieve a User",
+        "description": "Documentation on accessing User info via SCIM",
+        "operationId": "retrieve-a-user",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "A user's unique id can be identified using the Retrieve all Users endpoint with a filter parameter",
+            "schema": { "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {    "userName": "adoe@acme.com",   "schemas": [        "urn:ietf:params:scim:schemas:core:2.0:User"    ],    "id": "{USER_ID}",   "name": {       "givenName": "Alex",      "familyName": "Doe"   },  "emails": [      {            "value": "adoe@acme.com",         "type": "work",           "primary": true        }    ],    "active": true}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "userName": {
+                      "type": "string",
+                      "example": "adoe@acme.com"
+                    },
+                    "schemas": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "urn:ietf:params:scim:schemas:core:2.0:User"
+                      }
+                    },
+                    "id": { "type": "string", "example": "{USER_ID}" },
+                    "name": {
+                      "type": "object",
+                      "properties": {
+                        "givenName": { "type": "string", "example": "Alex" },
+                        "familyName": { "type": "string", "example": "Doe" }
+                      }
+                    },
+                    "emails": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "string",
+                            "example": "adoe@acme.com"
+                          },
+                          "type": { "type": "string", "example": "work" },
+                          "primary": {
+                            "type": "boolean",
+                            "example": true,
+                            "default": true
+                          }
+                        }
+                      }
+                    },
+                    "active": {
+                      "type": "boolean",
+                      "example": true,
+                      "default": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "500",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": { "schemas": [  "urn:ietf:params:scim:api:messages:2.0:Error"   ],  "status": "500","detail": "2 UNKNOWN: Invalid user id somethingRandom"}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "schemas": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "urn:ietf:params:scim:api:messages:2.0:Error"
+                      }
+                    },
+                    "status": { "type": "string", "example": "500" },
+                    "detail": {
+                      "type": "string",
+                      "example": "2 UNKNOWN: Invalid user id somethingRandom"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Users"]
+      },
+      "delete": {
+        "summary": "Delete a User",
+        "description": "Documentation on deleting a User via SCIM",
+        "operationId": "delete-a-user",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "A user's unique id can be identified using the Retrieve all Users endpoint with a filter parameter",
+            "schema": { "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "204",
+            "content": {
+              "application/json": {
+                "examples": { "Result": { "value": {} } },
+                "schema": { "type": "object", "properties": {} }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {   "schemas": [        "urn:ietf:params:scim:api:messages:2.0:Error"  ],  "status": "404",    "detail": "Resource {USER_ID} not found"}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "schemas": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "urn:ietf:params:scim:api:messages:2.0:Error"
+                      }
+                    },
+                    "status": { "type": "string", "example": "404" },
+                    "detail": {
+                      "type": "string",
+                      "example": "Resource {USER_ID} not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Users"]
+      },
+      "patch": {
+        "summary": "Update User Data",
+        "description": "Documentation on updating a User via SCIM",
+        "operationId": "update-user-data",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "A user's unique id can be identified using the Retrieve all Users endpoint with a filter parameter",
+            "schema": { "type": "string" },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["schemas"],
+                "properties": {
+                  "schemas": {
+                    "type": "array",
+                    "default": [
+                      "urn:ietf:params:scim:api:messages:2.0:PatchOp"
+                    ],
+                    "items": { "type": "string" }
+                  },
+                  "Operations": {
+                    "type": "array",
+                    "items": {
+                      "properties": {
+                        "op": {
+                          "type": "string",
+                          "description": "Must be \"add\", \"remove\", or \"replace\""
+                        },
+                        "path": {
+                          "type": "string",
+                          "description": "The path of the attribute that you wish to change (e.g., emails, name.givenName, name.familyName)"
+                        },
+                        "value": {
+                          "type": "string",
+                          "description": "The value you wish to use for \"add\" or \"replace\" operations. The \"remove\" operation does not take the \"value\" parameter."
+                        }
+                      },
+                      "required": ["op", "path"],
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {  "id": "{USER_ID}", "userName": "{USER_EMAIL}",   "active": true,    "emails": [        {        "primary": true,    "type": "work",          "value": "{USER_EMAIL}"      } ],  "name": {      "givenName": "Alex",   "familyName": "Doe"   },  "schemas": [  "urn:ietf:params:scim:schemas:core:2.0:User"   ],    "title": "Vice President"}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string", "example": "{USER_ID}" },
+                    "userName": { "type": "string", "example": "{USER_EMAIL}" },
+                    "active": {
+                      "type": "boolean",
+                      "example": true,
+                      "default": true
+                    },
+                    "emails": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "primary": {
+                            "type": "boolean",
+                            "example": true,
+                            "default": true
+                          },
+                          "type": { "type": "string", "example": "work" },
+                          "value": {
+                            "type": "string",
+                            "example": "{USER_EMAIL}"
+                          }
+                        }
+                      }
+                    },
+                    "name": {
+                      "type": "object",
+                      "properties": {
+                        "givenName": { "type": "string", "example": "Alex" },
+                        "familyName": { "type": "string", "example": "Doe" }
+                      }
+                    },
+                    "schemas": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "urn:ietf:params:scim:schemas:core:2.0:User"
+                      }
+                    },
+                    "title": { "type": "string", "example": "Vice President" }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {   "schemas": ["urn:ietf:params:scim:api:messages:2.0:Error"],    "status": "400",   "scimType": "invalidValue"}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "schemas": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "urn:ietf:params:scim:api:messages:2.0:Error"
+                      }
+                    },
+                    "status": { "type": "string", "example": "400" },
+                    "scimType": { "type": "string", "example": "invalidValue" }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "500",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {  "schemas": ["urn:ietf:params:scim:api:messages:2.0:Error"],    "status": "500",   "detail": "2 UNKNOWN: Email may not be updated for SSO users."}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "schemas": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "urn:ietf:params:scim:api:messages:2.0:Error"
+                      }
+                    },
+                    "status": { "type": "string", "example": "500" },
+                    "detail": {
+                      "type": "string",
+                      "example": "2 UNKNOWN: Email may not be updated for SSO users."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Users"]
+      }
+    },
+    "/Groups": {
+      "get": {
+        "summary": "List all Groups",
+        "description": "Documentation on listing Groups via SCIM",
+        "operationId": "retrieve-all-groups",
+        "parameters": [
+          {
+            "name": "startIndex",
+            "in": "query",
+            "description": "Minimum of 1.",
+            "schema": { "type": "integer", "format": "int32", "default": 1 }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "Minimum of 1.",
+            "schema": { "type": "integer", "format": "int32", "default": 25 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {   "schemas": [      "urn:ietf:params:scim:api:messages:2.0:ListResponse"   ],  "totalResults": 2,   "Resources": [      {          "schemas": [              "urn:ietf:params:scim:schemas:core:2.0:Group"           ],          "displayName": "Legal",            "id": "{GROUP_ID_1}",           "externalId": "",           "members": [               {                  "type": "User",                                   "value": "{USER_ID_1}"               }          ]     },      {          "schemas": [                "urn:ietf:params:scim:schemas:core:2.0:Group"           ],           "displayName": "My New Group",           "id": "{GROUP_ID_2}",           "externalId": "",            "members": [               {                "type": "User",                                    "value": "{USER_ID_2}"              },             {                  "type": "User",                                     "value": "{USER_ID_3}"             }          ]      }   ],    "startIndex": 1,    "itemsPerPage": 25}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "schemas": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+                      }
+                    },
+                    "totalResults": {
+                      "type": "integer",
+                      "example": 2,
+                      "default": 0
+                    },
+                    "Resources": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "schemas": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "example": "urn:ietf:params:scim:schemas:core:2.0:Group"
+                            }
+                          },
+                          "displayName": {
+                            "type": "string",
+                            "example": "Legal"
+                          },
+                          "id": { "type": "string", "example": "{GROUP_ID_1}" },
+                          "externalId": { "type": "string", "example": "" },
+                          "members": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "type": { "type": "string", "example": "User" },
+                               
+                                "value": {
+                                  "type": "string",
+                                  "example": "{USER_ID_1}"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "startIndex": {
+                      "type": "integer",
+                      "example": 1,
+                      "default": 0
+                    },
+                    "itemsPerPage": {
+                      "type": "integer",
+                      "example": 25,
+                      "default": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Groups"]
+      },
+      "post": {
+        "summary": "Create a Group",
+        "description": "Documentation on creating a Group via SCIM",
+        "operationId": "create-a-group",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["schemas", "displayName"],
+                "properties": {
+                  "schemas": {
+                    "type": "array",
+                    "default": ["urn:ietf:params:scim:schemas:core:2.0:Group"],
+                    "items": { "type": "string" }
+                  },
+                  "displayName": {
+                    "type": "string",
+                    "description": "The name you want to give the new group in Ironclad."
+                  },
+                  "members": {
+                    "type": "array",
+                    "items": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "description": "The unique id of the user. User Ids can be found by filtering the Retrieve all Users endpoint."
+                        }
+                      },
+                      "required": ["value"],
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "201",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {   "schemas": [        "urn:ietf:params:scim:schemas:core:2.0:Group"    ],   "displayName": "New Group",    "id": "{GROUP_ID}",   "externalId": "",   "members": []}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "schemas": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "urn:ietf:params:scim:schemas:core:2.0:Group"
+                      }
+                    },
+                    "displayName": { "type": "string", "example": "New Group" },
+                    "id": { "type": "string", "example": "{GROUP_ID}" },
+                    "externalId": { "type": "string", "example": "" },
+                    "members": { 
+                      "type": "array",
+                      "items": {
+                        "type": "array",
+                        "example": []
+                      } 
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Bad Request (Invalid User)": {
+                    "value": {   "schemas": [      "urn:ietf:params:scim:api:messages:2.0:Error"    ],    "status": "400",    "scimType": "invalidValue",   "detail": "invalid user id: Something Random"}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "schemas": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "urn:ietf:params:scim:api:messages:2.0:Error"
+                      }
+                    },
+                    "status": { "type": "string", "example": "400" },
+                    "scimType": { "type": "string", "example": "invalidValue" },
+                    "detail": {
+                      "type": "string",
+                      "example": "invalid user id: Something Random"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Groups"]
+      }
+    },
+    "/Groups/{groupId}": {
+      "get": {
+        "summary": "Retrieve a Group",
+        "description": "Documentation on accessing a Group via SCIM",
+        "operationId": "retrieve-a-group",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "A group's unique id can be identified using the Retrieve all Groups endpoint with a filter parameter",
+            "schema": { "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {"schemas": ["urn:ietf:params:scim:schemas:core:2.0:Group"   ],  "displayName": "My New Group",   "id": "{GROUP_ID}",  "externalId": "",    "members": [        {          "type":"User",                "value": "{USER_ID_1}"       },       {         "type": "User",                  "value": "{USER_ID_2}"        }   ]}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "schemas": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "urn:ietf:params:scim:schemas:core:2.0:Group"
+                      }
+                    },
+                    "displayName": {
+                      "type": "string",
+                      "example": "My New Group"
+                    },
+                    "id": { "type": "string", "example": "{GROUP_ID}" },
+                    "externalId": { "type": "string", "example": "" },
+                    "members": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": { "type": "string", "example": "User" },
+                         
+                          "value": {
+                            "type": "string",
+                            "example": "{USER_ID_1}"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {    "schemas": [       "urn:ietf:params:scim:api:messages:2.0:Error"    ],    "status": "404",    "detail": "Resource {GROUP_ID} not found"}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "schemas": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "urn:ietf:params:scim:api:messages:2.0:Error"
+                      }
+                    },
+                    "status": { "type": "string", "example": "404" },
+                    "detail": {
+                      "type": "string",
+                      "example": "Resource {GROUP_ID} not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Groups"]
+      },
+      "patch": {
+        "summary": "Update Group Membership",
+        "description": "Documentation on updating a Group via SCIM",
+        "operationId": "update-group-membership",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "A group's unique id can be identified using the Retrieve all Groups endpoint with a filter parameter",
+            "schema": { "type": "string" },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["schemas", "Operations"],
+                "properties": {
+                  "schemas": {
+                    "type": "array",
+                    "default": [
+                      "urn:ietf:params:scim:api:messages:2.0:PatchOp"
+                    ],
+                    "items": { "type": "string" }
+                  },
+                  "Operations": {
+                    "type": "array",
+                    "description": "Operations for updating group membership. See snippets below for more details.",
+                    "items": {
+                      "properties": {
+                        "op": {
+                          "type": "string",
+                          "description": "\"add\" or \"remove\""
+                        },
+                        "path": { "type": "string", "default": "members" },
+                        "value": {
+                          "type": "array",
+                          "description": "An array of User Ids. User Ids can be found by filtering results from the Retrieve all Users endpoint.",
+                          "items": {
+                            "properties": {
+                              "value": {
+                                "type": "string",
+                                "description": "The unique id of the user. User Ids can be found by filtering the Retrieve all Users endpoint."
+                              }
+                            },
+                            "required": ["value"],
+                            "type": "object"
+                          }
+                        }
+                      },
+                      "required": ["op", "path"],
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "OK": {
+                    "value": {    "schemas": [        "urn:ietf:params:scim:schemas:core:2.0:Group"    ],   "displayName": "My New Group",    "id": "a2c83351-ec38-4731-9920-f0d9887f4560",    "externalId": "",    "members": [        {            "type": "User",                        "value": "{USER_ID_2}"        }    ]}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "schemas": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "urn:ietf:params:scim:schemas:core:2.0:Group"
+                      }
+                    },
+                    "displayName": {
+                      "type": "string",
+                      "example": "My New Group"
+                    },
+                    "id": {
+                      "type": "string",
+                      "example": "a2c83351-ec38-4731-9920-f0d9887f4560"
+                    },
+                    "externalId": { "type": "string", "example": "" },
+                    "members": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": { "type": "string", "example": "User" },
+                          "value": {
+                            "type": "string",
+                            "example": "{USER_ID_1}"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Bad Request (Invalid User)": {
+                    "value": {    "schemas": [        "urn:ietf:params:scim:api:messages:2.0:Error"    ],    "status": "400",    "scimType": "invalidValue",    "detail": "invalid user id: Something Random"}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "schemas": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "urn:ietf:params:scim:api:messages:2.0:Error"
+                      }
+                    },
+                    "status": { "type": "string", "example": "400" },
+                    "scimType": { "type": "string", "example": "invalidValue" },
+                    "detail": {
+                      "type": "string",
+                      "example": "invalid user id: Something Random"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Groups"]
+      },
+      "delete": {
+        "summary": "Delete a Group",
+        "description": "Documentation on deleting a Group via SCIM",
+        "operationId": "delete-a-group",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "A group's unique id can be identified using the Retrieve all Groups endpoint with a filter parameter",
+            "schema": { "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "204",
+            "content": {
+              "application/json": {
+                "examples": { "Result": { "value": {} } },
+                "schema": { "type": "object", "properties": {} }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {"schemas": [        "urn:ietf:params:scim:api:messages:2.0:Error"   ],    "status": "404",    "detail": "Resource {GROUP_ID} not found"}
+                 }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "schemas": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "urn:ietf:params:scim:api:messages:2.0:Error"
+                      }
+                    },
+                    "status": { "type": "string", "example": "404" },
+                    "detail": {
+                      "type": "string",
+                      "example": "Resource {GROUP_ID} not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Groups"]
+      }
+    },
+    "/Schemas": {
+      "get": {
+        "summary": "List all Schemas",
+        "description": "Documentation on listing all Schemas via SCIM",
+        "operationId": "list-all-schemas",
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "schemas": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+                      }
+                    },
+                    "totalResults": {
+                      "type": "integer",
+                      "example": 4                    },
+                    "Resources": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {"$ref": "#/components/schemas/GroupSchema"},
+                          {"$ref": "#/components/schemas/CoreUserSchema"},
+                          {"$ref": "#/components/schemas/EnterpriseUserSchema"},
+                          {"$ref": "#/components/schemas/IroncladUserSchema"}
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Schemas"]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Users",
+      "description": "Documentation on SCIM Users."
+    },
+    {
+      "name": "Groups",
+      "description": "Documentation on SCIM Groups."
+    },
+    {
+      "name": "Schemas",
+      "description": "Documentation on SCIM Schemas."
+    }
+  ],
+  "x-readme": {
+    "headers": [],
+    "explorer-enabled": true,
+    "proxy-enabled": true,
+    "samples-languages": ["curl", "node", "ruby", "javascript", "python"]
+  }
+}
