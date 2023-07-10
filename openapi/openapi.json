@@ -88,6 +88,15 @@
             "schema": {
               "type": "string"
             }
+          }, 
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter workflows using a formula. Supported formula operations include:\n\n<ul>\n  <li><code>Equals</code></li>\n  <li><code>Contains</code></li>\n  <li><code>And</code></li>\n  <li><code>Or</code></li>\n</ul>\nFor more information on writing formulas, please refer to\n<a href=\"https://ironcladapp.com/formulas/#company%20display%20name\">this article</a>.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Equals(['counterpartySignerName'], 'Harley Quinn')"
           }
         ],
         "responses": {
@@ -3032,7 +3041,7 @@
                       }
                     }
                   },
-                  "setParent": {
+                  "parent": {
                     "type": "object",
                     "description": "Object containing record id to be set as the parent of the current record.",
                     "properties": {
@@ -3042,7 +3051,7 @@
                       }
                     }
                   },
-                  "setChildren" : {
+                  "children": {
                     "type": "array",
                     "description": "List of objects containing the record ids of the records to be set as child records of the current record.",
                     "items": {
@@ -3218,7 +3227,7 @@
                       }
                     }
                   },
-                  "setChildren" : {
+                  "addChildren": {
                     "type": "array",
                     "description": "List of objects containing the record ids of the records to be set as child records of the current record.",
                     "items": {
@@ -5343,7 +5352,10 @@
           "workflow_resumed",
           "workflow_signature_packet_sent",
           "workflow_signature_packet_uploaded",
-          "workflow_signature_packet_cancelled"
+          "workflow_signature_packet_cancelled",
+          "workflow_signer_added",
+          "workflow_signer_removed",
+          "workflow_signer_reassigned"
         ]
       },
       "webhookInvalidEventTypeBadRequestResponse": {
@@ -5355,7 +5367,7 @@
           },
           "message": {
             "type": "string",
-            "example": "invalid event type; *, workflow_launched, workflow_updated, workflow_cancelled, workflow_completed, workflow_approval_status_changed, workflow_attribute_updated, workflow_changed_turn, workflow_comment_reaction_added, workflow_comment_reaction_removed, workflow_comment_added, workflow_comment_removed, workflow_comment_updated, workflow_counterparty_invite_sent, workflow_counterparty_invite_revoked, workflow_documents_added, workflow_documents_removed, workflow_documents_updated, workflow_documents_renamed, workflow_document_edited, workflow_paused, workflow_resumed, workflow_signature_packet_sent, workflow_signature_packet_uploaded, or workflow_signature_packet_cancelled are acceptable event types"
+            "example": "invalid event type; *, workflow_launched, workflow_updated, workflow_cancelled, workflow_completed, workflow_approval_status_changed, workflow_attribute_updated, workflow_changed_turn, workflow_comment_reaction_added, workflow_comment_reaction_removed, workflow_comment_added, workflow_comment_removed, workflow_comment_updated, workflow_counterparty_invite_sent, workflow_counterparty_invite_revoked, workflow_documents_added, workflow_documents_removed, workflow_documents_updated, workflow_documents_renamed, workflow_document_edited, workflow_paused, workflow_resumed, workflow_signature_packet_sent, workflow_signature_packet_uploaded, or workflow_signature_packet_cancelled, workflow_signer_added, workflow_signer_removed, workflow_signer_reassigned are acceptable event types"
           },
           "param": {
             "type": "string",
