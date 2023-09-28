@@ -92,11 +92,11 @@
           {
             "name": "filter",
             "in": "query",
-            "description": "Filter workflows using a formula. Supported formula operations include:\n\n<ul>\n  <li><code>Equals</code></li>\n  <li><code>Contains</code></li>\n  <li><code>And</code></li>\n  <li><code>Or</code></li>\n</ul>\nFor more information on writing formulas, please refer to\n<a href=\"https://ironcladapp.com/formulas/#company%20display%20name\">this article</a>.",
+            "description": "Filter workflows using a formula. The workflow attribute ID should be enclosed in brackets `[ ]` and the value should be enclosed in single quotes `' '`.\n\nWorkflow attributes for a specific workflow design can be identified using the [List All Workflow Schemas](https://developer.ironcladapp.com/reference/list-all-workflow-schemas) endpoint.\n\nSupported formula operations include:\n\n<ul>\n  <li><code>Equals</code></li>\n  <li><code>Contains</code></li>\n  <li><code>And</code></li>\n  <li><code>Or</code></li>\n</ul>\nFor more information on writing formulas, please refer to\n<a href=\"https://ironcladapp.com/formulas/#company%20display%20name\">this article</a>.",
             "schema": {
               "type": "string"
             },
-            "example": "Equals(['counterpartySignerName'], 'Harley Quinn')"
+            "example": "Equals([counterpartyName], 'Harley Quinn')"
           }
         ],
         "responses": {
@@ -2143,7 +2143,7 @@
         "operationId": "retrieve-a-workflow-schema",
         "parameters": [
           {
-            "description": "The unique identifier of a schema. A list of identifiers can be retrieved using the `GET /workflow-schemas` endpoint. Only published workflows will have an identifier. ",
+            "description": "The unique identifier of a schema (see explanation of [Template ID](https://developer.ironcladapp.com/reference/getting-started-api)). A list of identifiers can be retrieved using the `GET /workflow-schemas` endpoint. Only published workflows will have an identifier. ",
             "name": "id",
             "in": "path",
             "schema": {
@@ -2429,143 +2429,7 @@
                     "list": {
                       "type": "array",
                       "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "string",
-                            "example": "22e2ff72-56a1-4711-a4ca-41328d311e9f"
-                          },
-                          "ironcladId": {
-                            "type": "string",
-                            "example": "IC-1"
-                          },
-                          "type": {
-                            "type": "string",
-                            "example": "consultingAgreement"
-                          },
-                          "name": {
-                            "type": "string",
-                            "example": "Consulting Agreement with Jane Doe"
-                          },
-                          "lastUpdated": {
-                            "type": "string",
-                            "example": "2018-05-08T17:28:10Z"
-                          },
-                          "properties": {
-                            "type": "object",
-                            "properties": {
-                              "agreementDate": {
-                                "type": "object",
-                                "properties": {
-                                  "type": {
-                                    "type": "string",
-                                    "example": "date"
-                                  },
-                                  "value": {
-                                    "type": "string",
-                                    "example": "2018-05-08T00:00:00-07:00"
-                                  }
-                                }
-                              },
-                              "counterpartyName": {
-                                "type": "object",
-                                "properties": {
-                                  "type": {
-                                    "type": "string",
-                                    "example": "string"
-                                  },
-                                  "value": {
-                                    "type": "string",
-                                    "example": "Jane Doe"
-                                  }
-                                }
-                              },
-                              "counterpartyEmail": {
-                                "type": "object",
-                                "properties": {
-                                  "type": {
-                                    "type": "string",
-                                    "example": "email"
-                                  },
-                                  "value": {
-                                    "type": "string",
-                                    "example": "jane.doe@test.com"
-                                  }
-                                }
-                              },
-                              "hourlyRate": {
-                                "type": "object",
-                                "properties": {
-                                  "type": {
-                                    "type": "string",
-                                    "example": "monetaryAmount"
-                                  },
-                                  "value": {
-                                    "type": "object",
-                                    "properties": {
-                                      "amount": {
-                                        "type": "integer",
-                                        "example": 100,
-                                        "default": 0
-                                      },
-                                      "currency": {
-                                        "type": "string",
-                                        "example": "USD"
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          "attachments": {
-                            "type": "object",
-                            "properties": {
-                              "signedCopy": {
-                                "type": "object",
-                                "properties": {
-                                  "filename": {
-                                    "type": "string",
-                                    "example": "2018-05-08 - Doe, Jane - Consulting Agreement.pdf"
-                                  },
-                                  "contentType": {
-                                    "type": "string",
-                                    "example": "application/json"
-                                  },
-                                  "href": {
-                                    "type": "string",
-                                    "example": "https://ironcladapp.com/public/api/v1/records/22e2ff72-56a1-4711-a4ca-41328d311e9f/attachments/signedCopy"
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          "links": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "recordId": {
-                                  "type": "string",
-                                  "example": "df1c2805-f5a3-4a14-9386-c28d950dff49"
-                                }
-                              }
-                            }
-                          },
-                          "source": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "workflow"
-                              },
-                              "workflowId": {
-                                "type": "string",
-                                "example": "abcd1234"
-                              }
-                            }
-                          }
-                        }
+                        "$ref": "#/components/schemas/RecordModel"
                       }
                     }
                   }
@@ -2654,7 +2518,7 @@
                   },
                   "parent": {
                     "type": "object",
-                    "description": "Object containing record id to be set as the parent of the current record.",
+                    "description": "Object containing Record IDs or Ironclad IDs to be set as the parent of the current record.",
                     "properties": {
                       "recordId": {
                         "type": "string",
@@ -2664,7 +2528,7 @@
                   },
                   "children" : {
                     "type": "array",
-                    "description": "List of objects containing the record ids of the records to be set as child records of the current record.",
+                    "description": "List of objects containing the Record IDs or Ironclad IDs of the records to be set as child records of the current record.",
                     "items": {
                       "$ref": "#/components/schemas/RecordPropertyLinkModel"
                     }
@@ -2680,71 +2544,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string",
-                      "example": "17fe582d-e1e0-4000-bf65-3d2ec2c500a4"
-                    },
-                    "ironcladId": {
-                      "type": "string",
-                      "example": "IC-1"
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "consultingAgreement"
-                    },
-                    "name": {
-                      "type": "string",
-                      "example": "Consulting Agreement with Jane Doe"
-                    },
-                    "lastUpdated": {
-                      "type": "string",
-                      "description": "The date (ISO8601 format) the record was last updated",
-                      "example": "2021-11-01T04:20:10Z"
-                    },
-                    "properties": {
-                      "type": "object",
-                      "properties": {
-                        "agreementDate": {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "example": "date"
-                            },
-                            "value": {
-                              "type": "string",
-                              "example": "2018-05-08T00:00:00-07:00"
-                            }
-                          }
-                        },
-                        "counterpartyName": {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "example": "string"
-                            },
-                            "value": {
-                              "type": "string",
-                              "example": "Jane Doe"
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "attachments": {
-                      "type": "object",
-                      "properties":{}
-                    },
-                    "links":  {
-                      "type": "array",
-                      "items": {
-                        "$ref":  "#/components/schemas/RecordPropertyLinkModel"
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/RecordModel"
                 }
               }
             }
@@ -2794,6 +2594,519 @@
         ]
       }
     },
+    "/records/smart-import": {
+      "get": {
+        "summary": "Retrieve Predictions",
+        "description": "Retrieve status of predictions of specific smart import record or all records in an import, one of Record Id or Import Id is required.",
+        "operationId": "retrieve-import-predictions",
+        "parameters": [
+          {
+            "name": "recordId",
+            "in": "query",
+            "description": "The ID of the Record for prediction status.",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "name": "importId",
+            "in": "query",
+            "description": "The ID of the Import for prediction statuses.",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "recordId": {
+                            "type": "string",
+                            "example": "df1c2805-f5a3-4a14-9386-c28d950dff49"
+                          },
+                          "status": {
+                            "type": "string",
+                            "enum": ["ready", "pending", "errored"]
+                          }
+                        }
+                      },
+                      "example": {
+                        "recordId": "461aa9a3-5984-4553-b8ab-56a1786c2f44",
+                        "status": "ready"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "recordId": {
+                            "type": "string",
+                            "example": "df1c2805-f5a3-4a14-9386-c28d950dff49"
+                          },
+                          "status": {
+                            "type": "string",
+                            "enum": ["ready", "pending", "errored"]
+                          }
+                        }
+                      },
+                      "example": [
+                        {
+                          "recordId": "461aa9a3-5984-4553-b8ab-56a1786c2f44",
+                          "status": "ready"
+                        },
+                        {
+                          "recordId": "6392dd09-814d-4def-97d9-8fe8badcf6ce",
+                          "status": "pending"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "invalidRecordType": {
+                    "summary": "Missing Record Id or Import Id from query.",
+                    "value": {
+                      "code": "INVALID_PARAM",
+                      "message": "missing required form-data part 'recordId' or 'importId"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "403",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "outOfSmartImportCredits": {
+                    "summary": "Smart Imports not enabled for company.",
+                    "value": {
+                      "code": "FORBIDDEN",
+                      "message": "Reading smart import records not allowed for company with id invalid-company-id "
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "invalidImportId": {
+                    "summary": "Record Id is invalid or does not exist",
+                    "value": {
+                      "code": "NOT_FOUND",
+                      "message": "couldn't find predictions for the record: invalid-record-id"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Records"]
+      },
+      "post": {
+        "summary": "Create a Smart Import Record",
+        "description": "Upload a file to create a record with smart import and predictions.  Provide none of recordType, newRecordTypeId, or newRecordTypeDisplayName to default to Imported type.",
+        "operationId": "create-a-smart-import-record",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": ["attachment"],
+                "properties": {
+                  "attachment": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Must be a binary. Base64 is not accepted at this time."
+                  },
+                  "recordType": {
+                    "type": "string",
+                    "format": "string",
+                    "default": "imported",
+                    "description": "Upload a smart import record as an existing record type.  Cannot provide alongside newRecordTypeId and newRecordTypeDisplayName. Defaults to Imported."
+                  },
+                  "newRecordTypeId": {
+                    "type": "string",
+                    "description": "The record type ID for a not-yet-existing record type.  Must be provided along with a newRecordTypeDisplayName"
+                  },
+                  "newRecordTypeDisplayName": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "The display name of the new record type to create."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "recordId": {
+                      "type": "string",
+                      "description": "Record ID of the new created record",
+                      "example": "17fe582d-e1e0-4000-bf65-3d2ec2c500a4"
+                    },
+                    "importId": {
+                      "type": "string",
+                      "example": "55ez635d-f2g9-5419-gs34-8h1jx4s733q9"
+                    },
+                    "remainingCredits": {
+                      "type": "number",
+                      "example": 50
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "param": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "invalidRecordType": {
+                    "summary": "Invalid record type.",
+                    "value": {
+                      "code": "INVALID_PARAM",
+                      "message": "unknown record type invalid_record_type",
+                      "param": "type"
+                    }
+                  },
+                  "invalidAttachment": {
+                    "summary": "Document size is too large.",
+                    "value": {
+                      "code": "INVALID_PARAM",
+                      "message": "parameter 'attachment' too large, please limit upload files less than 100MB",
+                      "param": "attachment"
+                    }
+                  },
+                  "invalidFileType": {
+                    "summary": "Document size is too large.",
+                    "value": {
+                      "code": "INVALID_PARAM",
+                      "message": "filename invalidFile.xyz does not have an accepted extension. Only the following extensions are allowed: .pdf, .docx, .doc, .xls, .xlsx, .eml, .tif, .jpg, .png, .jpeg, .txt, .ppt, .pptx.",
+                      "param": "metadata.filename"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "403",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "outOfSmartImportCredits": {
+                    "summary": "No more Smart Import Credits are available",
+                    "value": {
+                      "code": "FORBIDDEN",
+                      "message": "No more smart import credits available"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "invalidImportId": {
+                    "summary": "Import Id is invalid or does not exist",
+                    "value": {
+                      "code": "NOT_FOUND",
+                      "message": "couldn't find a record matching the id invalid-import-id"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Records"]
+      }
+    },
+    "/records/smart-import/{importId}": {
+      "post": {
+        "summary": "Upload a Smart Import Record to an existing Import",
+        "description": "Upload a file to an existing import and create a record with smart import and predictions.  Provide none of recordType, newRecordTypeId, or newRecordTypeDisplayName to default to Imported type.",
+        "operationId": "create-a-smart-import-record-to-import",
+        "parameters": [
+          {
+            "name": "importId",
+            "in": "path",
+            "description": "The Import Id. You can upload a record to an existing import in the repository. ",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": ["attachment", "recordType"],
+                "type": "object",
+                "properties": {
+                  "attachment": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Must be a binary. Base64 is not accepted at this time."
+                  },
+                  "recordType": {
+                    "type": "string",
+                    "format": "string",
+                    "default": "imported",
+                    "description": "Upload a smart import record as an existing record type.  Cannot provide alongside newRecordTypeId and newRecordTypeDisplayName. Defaults to Imported."
+                  },
+                  "newRecordTypeId": {
+                    "type": "string",
+                    "description": "The record type ID for a not-yet-existing record type.  Must be provided along with a newRecordTypeDisplayName"
+                  },
+                  "newRecordTypeDisplayName": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "The display name of the new record type to create."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "recordId": {
+                      "type": "string",
+                      "description": "Record ID of the new created record",
+                      "example": "17fe582d-e1e0-4000-bf65-3d2ec2c500a4"
+                    },
+                    "importId": {
+                      "type": "string",
+                      "example": "55ez635d-f2g9-5419-gs34-8h1jx4s733q9"
+                    },
+                    "remainingCredits": {
+                      "type": "number",
+                      "example": 50
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "param": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "invalidRecordType": {
+                    "summary": "Invalid record type.",
+                    "value": {
+                      "code": "INVALID_PARAM",
+                      "message": "unknown record type invalid_record_type",
+                      "param": "recordType"
+                    }
+                  },
+                  "invalidAttachment": {
+                    "summary": "Document size is too large.",
+                    "value": {
+                      "code": "INVALID_PARAM",
+                      "message": "parameter 'attachment' too large, please limit upload files less than 100MB",
+                      "param": "attachment"
+                    }
+                  },
+                  "invalidFileType": {
+                    "summary": "Document size is too large.",
+                    "value": {
+                      "code": "INVALID_PARAM",
+                      "message": "filename invalidFile.xyz does not have an accepted extension. Only the following extensions are allowed: .pdf, .docx, .doc, .xls, .xlsx, .eml, .tif, .jpg, .png, .jpeg, .txt, .ppt, .pptx.",
+                      "param": "metadata.filename"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "403",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "outOfSmartImportCredits": {
+                    "summary": "No more Smart Import Credits are available",
+                    "value": {
+                      "code": "FORBIDDEN",
+                      "message": "No more smart import credits available"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "invalidImportId": {
+                    "summary": "Import Id is invalid or does not exist",
+                    "value": {
+                      "code": "NOT_FOUND",
+                      "message": "couldn't find a record matching the id invalid-import-id"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Records"]
+      }
+    },
     "/records/{id}": {
       "get": {
         "summary": "Retrieve a Record",
@@ -2816,143 +3129,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string",
-                      "example": "22e2ff72-56a1-4711-a4ca-41328d311e9f"
-                    },
-                    "ironcladId": {
-                      "type": "string",
-                      "example": "IC-1"
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "consultingAgreement"
-                    },
-                    "name": {
-                      "type": "string",
-                      "example": "Consulting Agreement with Jane Doe"
-                    },
-                    "lastUpdated": {
-                      "type": "string",
-                      "example": "2018-05-08T17:28:10Z"
-                    },
-                    "properties": {
-                      "type": "object",
-                      "properties": {
-                        "agreementDate": {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "example": "date"
-                            },
-                            "value": {
-                              "type": "string",
-                              "example": "2018-05-08T00:00:00-07:00"
-                            }
-                          }
-                        },
-                        "counterpartyName": {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "example": "string"
-                            },
-                            "value": {
-                              "type": "string",
-                              "example": "Jane Doe"
-                            }
-                          }
-                        },
-                        "counterpartyEmail": {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "example": "email"
-                            },
-                            "value": {
-                              "type": "string",
-                              "example": "jane.doe@test.com"
-                            }
-                          }
-                        },
-                        "hourlyRate": {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "example": "monetaryAmount"
-                            },
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "amount": {
-                                  "type": "integer",
-                                  "example": 100,
-                                  "default": 0
-                                },
-                                "currency": {
-                                  "type": "string",
-                                  "example": "USD"
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "attachments": {
-                      "type": "object",
-                      "properties": {
-                        "signedCopy": {
-                          "type": "object",
-                          "properties": {
-                            "filename": {
-                              "type": "string",
-                              "example": "2018-05-08 - Doe, Jane - Consulting Agreement.pdf"
-                            },
-                            "contentType": {
-                              "type": "string",
-                              "example": "application/json"
-                            },
-                            "href": {
-                              "type": "string",
-                              "example": "https://ironcladapp.com/public/api/v1/records/22e2ff72-56a1-4711-a4ca-41328d311e9f/attachments/signedCopy"
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "links": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "recordId": {
-                            "type": "string",
-                            "example": "df1c2805-f5a3-4a14-9386-c28d950dff49"
-                          }
-                        }
-                      }
-                    },
-                    "source": {
-                      "type": "object",
-                      "properties": {
-                        "type": {
-                          "type": "string",
-                          "example": "workflow"
-                        },
-                        "workflowId": {
-                          "type": "string",
-                          "example": "abcd1234"
-                        }
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/RecordModel"
                 }
               }
             }
@@ -3043,7 +3220,7 @@
                   },
                   "parent": {
                     "type": "object",
-                    "description": "Object containing record id to be set as the parent of the current record.",
+                    "description": "Object containing Record IDs or Ironclad IDs to be set as the parent of the current record.",
                     "properties": {
                       "recordId": {
                         "type": "string",
@@ -3053,7 +3230,7 @@
                   },
                   "children": {
                     "type": "array",
-                    "description": "List of objects containing the record ids of the records to be set as child records of the current record.",
+                    "description": "List of objects containing the Record IDs or Ironclad IDs of the records to be set as child records of the current record.",
                     "items": {
                       "$ref": "#/components/schemas/RecordPropertyLinkModel"
                     }
@@ -3069,8 +3246,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {}
+                  "$ref": "#/components/schemas/RecordModel"
                 }
               }
             }
@@ -3107,7 +3283,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "204",
             "content": {
               "application/json": {
@@ -3205,21 +3381,21 @@
                   },
                   "addLinks": {
                     "type": "array",
-                    "description": "List of objects containing the record ids of the records to link. For an explanation of record IDs and how to find them, see [Getting Started](https://developer.ironcladapp.com/reference/getting-started-api).",
+                    "description": "List of objects containing the Record IDs or Ironclad IDs of the records to link. For an explanation of Record IDs or Ironclad IDs and how to find them, see [Getting Started](https://developer.ironcladapp.com/reference/getting-started-api).",
                     "items": {
                       "$ref": "#/components/schemas/RecordPropertyLinkModel"
                     }
                   },
                   "removeLinks": {
                     "type": "array",
-                    "description": "List of objects containing the record ids of the record links to remove. For an explanation of record IDs and how to find them, see [Getting Started](https://developer.ironcladapp.com/reference/getting-started-api).",
+                    "description": "List of objects containing the Record IDs or Ironclad IDs of the record links to remove. For an explanation of Record IDs or Ironclad IDs and how to find them, see [Getting Started](https://developer.ironcladapp.com/reference/getting-started-api).",
                     "items": {
                       "$ref": "#/components/schemas/RecordPropertyLinkModel"
                     }
                   },
                   "setParent": {
                     "type": "object",
-                    "description": "Object containing record id to be set as the parent of the current record.",
+                    "description": "Object containing Record IDs or Ironclad IDs to be set as the parent of the current record.",
                     "properties": {
                       "recordId": {
                         "type": "string",
@@ -3229,7 +3405,7 @@
                   },
                   "addChildren": {
                     "type": "array",
-                    "description": "List of objects containing the record ids of the records to be set as child records of the current record.",
+                    "description": "List of objects containing the Record IDs or Ironclad IDs of the records to be set as child records of the current record.",
                     "items": {
                       "$ref": "#/components/schemas/RecordPropertyLinkModel"
                     }
@@ -3241,7 +3417,7 @@
                   },
                   "removeChildren": {
                     "type": "array",
-                    "description": "List of objects containing the record ids of the child records to be removed from the current record.",
+                    "description": "List of objects containing the Record IDs or Ironclad IDs of the child records to be removed from the current record.",
                     "items": {
                       "$ref": "#/components/schemas/RecordPropertyLinkModel"
                     }
@@ -3288,143 +3464,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string",
-                      "example": "22e2ff72-56a1-4711-a4ca-41328d311e9f"
-                    },
-                    "ironcladId": {
-                      "type": "string",
-                      "example": "IC-1"
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "consultingAgreement"
-                    },
-                    "name": {
-                      "type": "string",
-                      "example": "Consulting Agreement with Jane Doe"
-                    },
-                    "lastUpdated": {
-                      "type": "string",
-                      "example": "2018-05-08T17:28:10Z"
-                    },
-                    "properties": {
-                      "type": "object",
-                      "properties": {
-                        "agreementDate": {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "example": "date"
-                            },
-                            "value": {
-                              "type": "string",
-                              "example": "2018-05-08T00:00:00-07:00"
-                            }
-                          }
-                        },
-                        "counterpartyName": {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "example": "string"
-                            },
-                            "value": {
-                              "type": "string",
-                              "example": "Jane Doe"
-                            }
-                          }
-                        },
-                        "counterpartyEmail": {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "example": "email"
-                            },
-                            "value": {
-                              "type": "string",
-                              "example": "jane.doe@test.com"
-                            }
-                          }
-                        },
-                        "hourlyRate": {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "example": "monetaryAmount"
-                            },
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "amount": {
-                                  "type": "integer",
-                                  "example": 100,
-                                  "default": 0
-                                },
-                                "currency": {
-                                  "type": "string",
-                                  "example": "USD"
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "attachments": {
-                      "type": "object",
-                      "properties": {
-                        "signedCopy": {
-                          "type": "object",
-                          "properties": {
-                            "filename": {
-                              "type": "string",
-                              "example": "2018-05-08 - Doe, Jane - Consulting Agreement.pdf"
-                            },
-                            "contentType": {
-                              "type": "string",
-                              "example": "application/json"
-                            },
-                            "href": {
-                              "type": "string",
-                              "example": "https://ironcladapp.com/public/api/v1/records/22e2ff72-56a1-4711-a4ca-41328d311e9f/attachments/signedCopy"
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "links": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "recordId": {
-                            "type": "string",
-                            "example": "df1c2805-f5a3-4a14-9386-c28d950dff49"
-                          }
-                        }
-                      }
-                    },
-                    "source": {
-                      "type": "object",
-                      "properties": {
-                        "type": {
-                          "type": "string",
-                          "example": "workflow"
-                        },
-                        "workflowId": {
-                          "type": "string",
-                          "example": "abcd1234"
-                        }
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/RecordModel"
                 }
               }
             }
@@ -3618,7 +3658,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "The ID or Ironclad ID of the Record. For an explanation of record IDs and how to find them, see [Getting Started](https://developer.ironcladapp.com/reference/getting-started-api).",
+            "description": "The ID or Ironclad ID of the Record. For an explanation of Record IDs or Ironclad IDs and how to find them, see [Getting Started](https://developer.ironcladapp.com/reference/getting-started-api).",
             "schema": {
               "type": "string"
             },
@@ -5046,6 +5086,156 @@
         },
         "description": ""
       },
+      "RecordModel": {
+        "type": "object", 
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "22e2ff72-56a1-4711-a4ca-41328d311e9f"
+          },
+          "ironcladId": {
+            "type": "string",
+            "example": "IC-1"
+          },
+          "type": {
+            "type": "string",
+            "example": "consultingAgreement"
+          },
+          "name": {
+            "type": "string",
+            "example": "Consulting Agreement with Jane Doe"
+          },
+          "lastUpdated": {
+            "type": "string",
+            "example": "2018-05-08T17:28:10Z"
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "agreementDate": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "date"
+                  },
+                  "value": {
+                    "type": "string",
+                    "example": "2018-05-08T00:00:00-07:00"
+                  }
+                }
+              },
+              "counterpartyName": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "value": {
+                    "type": "string",
+                    "example": "Jane Doe"
+                  }
+                }
+              },
+              "counterpartyEmail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "email"
+                  },
+                  "value": {
+                    "type": "string",
+                    "example": "jane.doe@test.com"
+                  }
+                }
+              },
+              "hourlyRate": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "monetaryAmount"
+                  },
+                  "value": {
+                    "type": "object",
+                    "properties": {
+                      "amount": {
+                        "type": "integer",
+                        "example": 100,
+                        "default": 0
+                      },
+                      "currency": {
+                        "type": "string",
+                        "example": "USD"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "attachments": {
+            "type": "object",
+            "properties": {
+              "signedCopy": {
+                "type": "object",
+                "properties": {
+                  "filename": {
+                    "type": "string",
+                    "example": "2018-05-08 - Doe, Jane - Consulting Agreement.pdf"
+                  },
+                  "contentType": {
+                    "type": "string",
+                    "example": "application/json"
+                  },
+                  "href": {
+                    "type": "string",
+                    "example": "https://ironcladapp.com/public/api/v1/records/22e2ff72-56a1-4711-a4ca-41328d311e9f/attachments/signedCopy"
+                  }
+                }
+              }
+            }
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "recordId": {
+                  "type": "string",
+                  "example": "df1c2805-f5a3-4a14-9386-c28d950dff49"
+                }
+              }
+            }
+          },
+          "parentId": {
+            "type": "string",
+            "example": "d10b8c01-5c54-4a59-82cb-51e3825182e9"
+          },
+          "childIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "4a785686-d3d5-47bc-960e-3df0df871ea9"
+            }
+          },
+          "source": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "workflow"
+              },
+              "workflowId": {
+                "type": "string",
+                "example": "abcd1234"
+              }
+            }
+          }
+        }
+      },
       "RecordPropertyLinkModel": {
         "type": "object",
         "properties": {
@@ -5355,7 +5545,8 @@
           "workflow_signature_packet_cancelled",
           "workflow_signer_added",
           "workflow_signer_removed",
-          "workflow_signer_reassigned"
+          "workflow_signer_reassigned",
+          "workflow_step_updated"
         ]
       },
       "webhookInvalidEventTypeBadRequestResponse": {

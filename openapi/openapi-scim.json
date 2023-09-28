@@ -175,9 +175,13 @@
                               "referenceTypes": {
                                 "type": "array",
                                 "items": {
-                                  "type": "array",
-                                  "example": ["User", "Group"]
-                                }
+                                  "type": "string",
+                                  "enum": [
+                                    "User", 
+                                    "Group"
+                                  ]
+                                },
+                                "example": ["User", "Group"]
                               },
                               "multiValued": {
                                 "type": "boolean",
@@ -239,9 +243,9 @@
                               "canonicalValues": {
                                 "type": "array",
                                 "items": {
-                                  "type": "array",
-                                  "example": ["User, Group"]
-                                }
+                                  "type": "string"
+                                },
+                                "example": ["User, Group"]
                               },
                               "mutability": {
                                 "type": "string",
@@ -1374,6 +1378,16 @@
         }
       }
     },
+    "parameters": {
+      "ExcludedAttributes": {
+        "name": "excludedAttributes",
+        "in": "query",
+        "description": "A comma-separated list of attributes to exclude from the resources in the response.",
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
     "securitySchemes": {
       "sec0": {
         "type": "apiKey",
@@ -1390,6 +1404,11 @@
         "summary": "Create a User",
         "description": "Documentation on creating a User via SCIM",
         "operationId": "create-a-user",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ExcludedAttributes"
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -1542,6 +1561,9 @@
             "description": "Filters for identifying subsets of users. Filters must comply with the SCIM protocol's convention. For more details, see SCIM [RFC 7644 Section 3.4.2.2](https://datatracker.ietf.org/doc/html/rfc7644#section-3.4.2.2).",
             "example": "userName eq \"boba.fett@gmail.com\"",
             "schema": { "type": "string" }
+          },
+          {
+            "$ref": "#/components/parameters/ExcludedAttributes"
           }
         ],
         "responses": {
@@ -1683,12 +1705,16 @@
         "description": "Documentation on accessing User info via SCIM",
         "operationId": "retrieve-a-user",
         "parameters": [
+          
           {
             "name": "userId",
             "in": "path",
             "description": "A user's unique id can be identified using the Retrieve all Users endpoint with a filter parameter",
             "schema": { "type": "string" },
             "required": true
+          },
+          {
+            "$ref": "#/components/parameters/ExcludedAttributes"
           }
         ],
         "responses": {
@@ -1785,7 +1811,7 @@
       },
       "delete": {
         "summary": "Delete a User",
-        "description": "Documentation on deleting a User via SCIM",
+        "description": "Delete a user on Ironclad. If the deletion is successful, all active workflows associated with the deleted user should be automatically reassigned to the default user within the admin group. To learn how to set a default user, see the [Manage Groups](https://support.ironcladapp.com/hc/en-us/articles/12286570480791-Manage-Groups) guide.",
         "operationId": "delete-a-user",
         "parameters": [
           {
@@ -1849,6 +1875,9 @@
             "description": "A user's unique id can be identified using the Retrieve all Users endpoint with a filter parameter",
             "schema": { "type": "string" },
             "required": true
+          }, 
+          {
+            "$ref": "#/components/parameters/ExcludedAttributes"
           }
         ],
         "requestBody": {
@@ -2025,6 +2054,9 @@
             "in": "query",
             "description": "Minimum of 1.",
             "schema": { "type": "integer", "format": "int32", "default": 25 }
+          },
+          {
+            "$ref": "#/components/parameters/ExcludedAttributes"
           }
         ],
         "responses": {
@@ -2109,6 +2141,11 @@
         "summary": "Create a Group",
         "description": "Documentation on creating a Group via SCIM",
         "operationId": "create-a-group",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ExcludedAttributes"
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -2166,12 +2203,19 @@
                     "displayName": { "type": "string", "example": "New Group" },
                     "id": { "type": "string", "example": "{GROUP_ID}" },
                     "externalId": { "type": "string", "example": "" },
-                    "members": { 
+                    "members": {
                       "type": "array",
                       "items": {
-                        "type": "array",
-                        "example": []
-                      } 
+                        "type": "object",
+                        "properties": {
+                          "type": { "type": "string", "example": "User" },
+                         
+                          "value": {
+                            "type": "string",
+                            "example": "{USER_ID_1}"
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -2224,6 +2268,9 @@
             "description": "A group's unique id can be identified using the Retrieve all Groups endpoint with a filter parameter",
             "schema": { "type": "string" },
             "required": true
+          },
+          {
+            "$ref": "#/components/parameters/ExcludedAttributes"
           }
         ],
         "responses": {
@@ -2314,6 +2361,9 @@
             "description": "A group's unique id can be identified using the Retrieve all Groups endpoint with a filter parameter",
             "schema": { "type": "string" },
             "required": true
+          },
+          {
+            "$ref": "#/components/parameters/ExcludedAttributes"
           }
         ],
         "requestBody": {
