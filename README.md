@@ -4,9 +4,9 @@ This repository contains [OpenAPI](https://www.openapis.org/) documents for [Iro
 
 Files can be found in the `openapi/` directory:
 
-*`openapi.json`: [Ironclad's API](https://developer.ironcladapp.com/reference/getting-started-api)
+- `openapi.json` <a href="https://validator.swagger.io/validator/debug?url=https://raw.githubusercontent.com/Ironclad/openapi/main/openapi/openapi.json" target="_blank"><img src="https://validator.swagger.io/validator?url=https://raw.githubusercontent.com/Ironclad/openapi/main/openapi/openapi.json" style="height: 25px;" align="top"></a> : [Ironclad's API](https://developer.ironcladapp.com/reference/getting-started-api)
 
-*`openapi-scim.json`: SCIM, or the System for Cross-domain Identity Management specification, is an open standard designed to manage user identity information. SCIM provides a defined schema for representing users and groups, and a RESTful API to run CRUD operations on those user and group resources.
+- `openapi-scim.json` <a href="https://validator.swagger.io/validator/debug?url=https://raw.githubusercontent.com/Ironclad/openapi/main/openapi/openapi-scim.json" target="_blank"><img src="https://validator.swagger.io/validator?url=https://raw.githubusercontent.com/Ironclad/openapi/main/openapi/openapi-scim.json" style="height: 25px;" align="top"></a> : SCIM, or the System for Cross-domain Identity Management specification, is an open standard designed to manage user identity information. SCIM provides a defined schema for representing users and groups, and a RESTful API to run CRUD operations on those user and group resources.
 
 ## What is OpenAPI?
 
