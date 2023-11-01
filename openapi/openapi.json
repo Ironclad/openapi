@@ -1038,7 +1038,9 @@
               "type": "string"
             },
             "required": true
-          }
+          },
+          { "$ref": "#/components/parameters/XAsUserEmail" },
+          { "$ref": "#/components/parameters/XAsUserId" }
         ],
         "requestBody": {
           "content": {
@@ -1320,7 +1322,9 @@
               "type": "string"
             },
             "required": true
-          }
+          },
+          { "$ref": "#/components/parameters/XAsUserEmail" },
+          { "$ref": "#/components/parameters/XAsUserId" }
         ],
         "requestBody": {
           "content": {
@@ -1359,10 +1363,7 @@
                     "example": "Changing attribute on a Workflow."
                   }
                 },
-                "required": [
-                  "updates",
-                  "comment"
-                ]
+                "required": ["updates"]
               }
             }
           }
@@ -4817,7 +4818,16 @@
           "draft": {
             "type": "array",
             "description": "Provide a URL for a file representing the first uploaded version of a counterparty paper. This field is required when the template source is set to third party paper",
-            "example": [{"url": "https://www.law.berkeley.edu/wp-content/uploads/2018/12/Resume-Samples-1.pdf"}]
+            "items": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "description": "URL of the file to be uploaded",
+                  "example": "https://www.law.berkeley.edu/wp-content/uploads/2018/12/Resume-Samples-1.pdf"
+                },
+              }
+            }
           },
           "paperSource": {
             "type": "string",
