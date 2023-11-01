@@ -4825,7 +4825,7 @@
                   "type": "string",
                   "description": "URL of the file to be uploaded",
                   "example": "https://www.law.berkeley.edu/wp-content/uploads/2018/12/Resume-Samples-1.pdf"
-                },
+                }
               }
             }
           },
